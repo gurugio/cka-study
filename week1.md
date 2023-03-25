@@ -65,9 +65,25 @@ configuration files: /etc/kubenetes/manifests/kube-apiserver.haml
 
 service file: /etc/systemd/system/kube-apiserver.service
 
+### kube controller manager
 
+manage various managers
 
+controller: continuously monitor the state of various components within the system and maintain the state to be desired state
+ 
+node controller checks the status of nodes every 5 seconds
+ 
+'ps' shows kube-controller-manager process
 
+service file to run kube-controller-manager.service /etc/systemd/system/kube-controller-manager.service
+ 
+/etc/kubenetes/manifests/kube-controller-manager.yaml
+
+ 
+### kube scheduler
+ 
+schedule pod on a node: which pod goes which node
+ 
 
 ## DAY2 | 2023-03-28 | 18-27 |
 ## DAY3 | 2023-03-29 | 28-35 |
