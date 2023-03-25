@@ -58,10 +58,13 @@ scheduler
 kubelet
 
 'ps' command shows kube-apiserver is running on the master node with many parameter for kubelet, etcd and certificate and etc.
+
 'kubectl get pods -n kube-system' shows kube-apiserver-<master node name> pod is running.
  
 configuration files: /etc/kubenetes/manifests/kube-apiserver.haml
+
 service file: /etc/systemd/system/kube-apiserver.service
+
 
 
 
