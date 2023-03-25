@@ -86,6 +86,23 @@ schedule pod on a node: which pod goes which node
  
 
 ## DAY2 | 2023-03-28 | 18-27 |
+ 
+### kubelet
+ 
+ * captain on the ship
+ * contact pointer from the master ship
+ * report status regularly
+ * register a node
+ * make the container to pull a image and run a container
+ * monitor the status of pod
+ * use `ps aux` to see the kubelet process
+ 
+### kube-proxy
+ 
+ * every pod can reach every pod
+ * 
+ 
+ 
 ## DAY3 | 2023-03-29 | 28-35 |
 ## DAY4 | 2023-03-30 | 36-48 |
 ## DAY5 | 2023-03-31 | 49-61 |
