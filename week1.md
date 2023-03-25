@@ -41,6 +41,29 @@ change API version to 3 with setting env variable ETCDCTL_API=3
 
 RAFT consensus algorithm
 
+store every information to run the k8s: nodes, pods, cofig, secret, account etc
+
+### Kube-API server
+
+primary management component in k8s
+
+kubectk -> kube-API server
+Or we can use API directly
+
+Authenticate user
+validate request
+retrieve data
+update ETCD
+scheduler
+kubelet
+
+'ps' command shows kube-apiserver is running on the master node with many parameter for kubelet, etcd and certificate and etc.
+'kubectl get pods -n kube-system' shows kube-apiserver-<master node name> pod is running.
+ 
+configuration files: /etc/kubenetes/manifests/kube-apiserver.haml
+service file: /etc/systemd/system/kube-apiserver.service
+
+
 
 
 ## DAY2 | 2023-03-28 | 18-27 |
