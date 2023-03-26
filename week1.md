@@ -116,6 +116,7 @@ schedule pod on a node: which pod goes which node
    * conatiners property: a list of (name & image) of multiple containers
  
  `kubectl create -f <name>.yml`
+ `kubectl describe pod <pot-name>`
  
 ## DAY3 | 2023-03-29 | 28-35 |
 ## DAY4 | 2023-03-30 | 36-48 |
