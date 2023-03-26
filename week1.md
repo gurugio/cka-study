@@ -170,6 +170,13 @@ schedule pod on a node: which pod goes which node
        type: front-end
  ```
  
+ `kubectl create -f <file>.yml`
+ 
+ `kubectl get replicaset`
+ 
+ `kubectl delete replicaset <name>`
+ 
+ `kubectl replace -f <name>.yml`
  
 ## DAY4 | 2023-03-30 | 36-48 |
 ## DAY5 | 2023-03-31 | 49-61 |
