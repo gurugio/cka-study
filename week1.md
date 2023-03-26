@@ -85,7 +85,21 @@ schedule pod on a node: which pod goes which node
 ### kube-proxy
  
  * every pod can reach every pod
- * 
+ * an internal network all pods connect to
+ * service with an IP cannot join the internal network that is a viraul component, accessible by all pods
+ * kube-proxy is a process that runs on each node
+   * look for new service
+   * create a rule on each node to forward traffic to those services to the backend pods
+   * create an IP table rules on each node to forward traffic
+   * forward an IP traffic with the service IP to the service pod
+   * deployed as a daemonset - gurantee one pod on each node
+ 
+ ### pod
+ 
+ * a container is encapsulated into a pod
+ * a pot is a single instance of an application
+ * usually 1:1 between pod and application
+ 
  
  
 ## DAY3 | 2023-03-29 | 28-35 |
