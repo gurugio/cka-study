@@ -100,7 +100,22 @@ schedule pod on a node: which pod goes which node
  * a pot is a single instance of an application
  * usually 1:1 between pod and application
  
+ ### PODs with YAML
  
+ Top level properties
+ * apiVersion: API version of kubernetes
+   * POD: v1
+   * Service: v1
+   * ReplicaSet: apps/v1
+   * Deployment: apps/v1
+ * kind:
+   * Pod, ReplocaSet, Deployment
+ * metadata: Dictionary format for name, labels...
+   * Under labels, you can have any kind of key and value paris as many as you want.
+ * spec: specify image
+   * conatiners property: a list of (name & image) of multiple containers
+ 
+ `kubectl create -f <name>.yml`
  
 ## DAY3 | 2023-03-29 | 28-35 |
 ## DAY4 | 2023-03-30 | 36-48 |
