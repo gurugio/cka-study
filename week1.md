@@ -163,7 +163,7 @@ schedule pod on a node: which pod goes which node
      spec:
        containers:
        - name:
-         image:
+         image: ==========> end of pod definition
    replicas: 3
    selector: 
      matchLabels:
@@ -177,6 +177,43 @@ schedule pod on a node: which pod goes which node
  `kubectl delete replicaset <name>`
  
  `kubectl replace -f <name>.yml`
+ 
+ ### Deployments
+ 
+ Deployment: a Kubernetes object higher layer than ReplicaSet
+ * upgrade the instances seamlessly
+ * rolling updates
+ * undo changes
+ * pause, resume changes
+ 
+ definition file is same except the kind Deployment
+ ```
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: myapp-deployment
+   labels:
+     app: myapp
+     type: front-end
+ spec:
+   template:
+     metadata:
+       name: myapp-pod
+       labels:
+         app: myapp
+         type: front-end
+     spec:
+       containers:
+       - name: nginx-container
+         image: nginx
+   replicas: 3
+   selector:
+     matchLabels:
+       type: front-end
+ ```
+ 
+ `kubectl get all`
+ 
  
 ## DAY4 | 2023-03-30 | 36-48 |
 ## DAY5 | 2023-03-31 | 49-61 |
