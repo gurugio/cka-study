@@ -119,5 +119,77 @@ schedule pod on a node: which pod goes which node
  `kubectl describe pod <pot-name>`
  
 ## DAY3 | 2023-03-29 | 28-35 |
+ 
+ ### ReplicaSets
+ 
+ * High Availability
+ * share load: Load balancing and scaling
+ 
+ Replication Controller: parent of pod
+ ```
+ apiVersion: v1
+ kind: ReplicationController
+ metadata:
+   name: myapp-rc
+   labels:
+     app: myapp
+     type: front-end
+ spec:
+   template:  ============> just pod definition file below
+     metadata:
+     ....
+     spec:
+       containers:
+       - name:
+         image:
+   replicas: 3
+ ```
+ 
+ Replication Set
+ ```
+ apiVersion: apps/v1
+ kind: ReplicationSet
+ metadata:
+   name: myapp-rs
+   labels:
+     app: myapp
+     type: front-end
+ spec:
+   template:  ============> just pod definition file below
+     metadata:
+       name: myapp-pod
+       labels:
+         type: front-end
+     spec:
+       containers:
+       - name:
+         image:
+   replicas: 3
+   selector: 
+     matchLabels:
+       type: front-end
+ ```
+ 
+ 
 ## DAY4 | 2023-03-30 | 36-48 |
 ## DAY5 | 2023-03-31 | 49-61 |
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
