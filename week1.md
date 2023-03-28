@@ -214,6 +214,37 @@ schedule pod on a node: which pod goes which node
  
  `kubectl get all`
  
+ ### Services
+ 
+ * connect applications together with other applications or users
+ * enable front-end for end users
+ * communication between backend and frontend pods, backend and database
+ 
+ * External user cannot access a pod inside of Kubernetes node because they are in the different network
+ * User should be able to access the pod via IP of Kubernetes node
+ * Service listens to the port of the node and forward request on that port to the pod => NodePort service
+ * ClusterIP: create a virtual IP inside of cluster and enable communication between services
+ * LoadBalancer: distribute load
+ 
+ NodePort
+ * NodeIP:NodePort => ServiceIP:Port => PodIP:TargetPort
+ * NodePort should be 30,000 ~ 32,767
+ 
+ ```
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: myapp-service
+ spec:
+   type: NodePort
+   ports:
+   - targetPort: 80 -----> port of Pod
+     port: 80 ------------> port of service connecting to Pod
+     nodePort: 30008. -----> port for external access
+   selector:
+     app: myapp        ------> labels from the Pod definition (app: myapp, type: front-end) 
+     type: front-end
+ ```
  
 ## DAY4 | 2023-03-30 | 36-48 |
 ## DAY5 | 2023-03-31 | 49-61 |
