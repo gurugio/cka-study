@@ -247,6 +247,50 @@ schedule pod on a node: which pod goes which node
  ```
  
 ## DAY4 | 2023-03-30 | 36-48 |
+ 
+ ### Services Cluster IP
+ 
+ * A pod could be down and the IP is not stable
+ * Cluster IP make a group Pods and provide a single interface to access the Pods
+ * assing a name and IP to the Cluster IP
+ 
+ ```
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: back-end
+ spec:
+   type: ClusterIP
+   ports:
+   - targetPort: 80 ---------> backend port
+     port: 80
+   selector: ---------> labels of pod
+     app: myapp
+     type: back-end
+ ```
+ 
+ ### LoadBalancer
+ 
+ * User need a single URL to access multi pods on multi nodes
+ * Definition file is same to Cluster IP except "spec: type: LoadBalancer"
+
+ ```
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: back-end
+ spec:
+   type: ClusterIP
+   ports:
+   - targetPort: 80 ---------> backend port
+     port: 80
+   selector: ---------> labels of pod
+     app: myapp
+     type: back-end
+ ```
+ 
+ 
+ 
 ## DAY5 | 2023-03-31 | 49-61 |
  
  
