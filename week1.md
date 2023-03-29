@@ -289,7 +289,8 @@ schedule pod on a node: which pod goes which node
      type: back-end
  ```
  
- 
+ * On a platform not supports the LoadBalancer, it would be same to NodePort without load-balance feature.
+ * 노드 발란서는 로드에 따라 분산하지만, NodePort는 랜덤하게 분산하는데 그 차이를 이야기하는듯??
  
 ## DAY5 | 2023-03-31 | 49-61 |
  
