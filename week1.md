@@ -359,6 +359,11 @@ schedule pod on a node: which pod goes which node
      limits.memory: 10Gi
  ```
  
+ ### imperative vs Declarative
+ 
+ * Imperative: what to do and how to do
+ * Declarative: specify what to do, not how to do
+ 
 ## DAY5 | 2023-03-31 | 49-61 |
  
  
