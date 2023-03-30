@@ -292,6 +292,73 @@ schedule pod on a node: which pod goes which node
  * On a platform not supports the LoadBalancer, it would be same to NodePort without load-balance feature.
  * 노드 발란서는 로드에 따라 분산하지만, NodePort는 랜덤하게 분산하는데 그 차이를 이야기하는듯??
  
+ ### namespace
+ 
+ * a default name is "Default".
+ * kube-system: system management pods
+ * kube-public: resources available for all users
+ * Each namespace has its own policy: resource limit, refer each with simple name without full url
+ * simple name in the same namespace: db-service
+ * fill name of pod in the different namespace: db-service.dev.svc.cluster.local
+   * db-service: service name
+   * dev: default namespace
+   * svc: service
+   * cluster.local: domain
+ * dns is added automatillay
+ 
+ `kubectl get pods` : show only default namespace
+ 
+ `kubectl create -f pod-definition.yml --namespace=dev` : create a pod in the "dev" namespace
+
+ * add metadata: namespace: field in the definition file
+ ```
+ apiVersion: v1
+ kind: Pod
+ 
+ metadata:
+   name: myapp-pod
+   namespace: dev
+   labels:
+     app: myapp
+ spec:
+   containers:
+   - name: nginx-container
+     image: nginx
+ ```
+ 
+ * create a namespace with yaml file
+ ```
+ apiVersion: v1
+ kind: Namespace
+ metadata:
+   name: dev
+ ```
+
+ * create a namespace with command
+ `kubectl create namespace dev`
+ 
+ * change the namespace permanently
+ `kubectl config set-context $(kubectl config current-context) --namespace=dev`
+ 
+ * list all pod in all namespaces
+ `kubectl get pods --all-namespaces`
+ 
+ * create a resource quota
+ ```
+ apiVersion: v1
+ kind: ResourceQuota
+ metadata:
+   name: compute-quota
+   namespace: dev
+ spec:
+   hard:
+     pods: "10"
+     requests.cpu: "4"
+     requests.memory: 5Gi
+     limits.cpu: "10"
+     limits.memory: 10Gi
+ ```
+ 
 ## DAY5 | 2023-03-31 | 49-61 |
  
  
