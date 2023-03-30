@@ -364,6 +364,11 @@ schedule pod on a node: which pod goes which node
  * Imperative: what to do and how to do
  * Declarative: specify what to do, not how to do
  
+ ### kubectl apply command
+ 
+ * create an object with yaml file -> live object and "last applied configuration"
+ * run kubectl apply -> compare the definition file and "last applied configuration" -> change the live object
+ 
 ## DAY5 | 2023-03-31 | 49-61 |
  
  
