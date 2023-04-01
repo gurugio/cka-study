@@ -533,6 +533,7 @@ schedule pod on a node: which pod goes which node
  ```
  
  * Default limits is 1 vCPU and 512 MiB
- 
+ * Cpu consuming than the limit will be throttled.
+ * Memory consuming over the limit kills the process.
  
  
