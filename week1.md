@@ -532,6 +532,7 @@ schedule pod on a node: which pod goes which node
          cpu: 2
  ```
  
+ * Default limits is 1 vCPU and 512 MiB
  
  
  
