@@ -410,10 +410,43 @@ schedule pod on a node: which pod goes which node
  
  * Annotations: labels not selected by selectors, extra metadata, like comment?
  
+ ### Taints and Tolerations
  
+ * set restriction for scheduling
+ * Node: Taint=blue -> no pod without any tolerataion cannot be run
+ * add Tolerant to blue to a pod -> node with taint=blue can run only that pod
+ * taint -> set on node
+ * toleration -> set on pod
  
+ * how to set a taint key value pair 
+   * taint-effect: NoSchedule, PreferNoSchedule, NoExecute
+ ```
+ kubectl taint nodes node-name key=value:taint-effect
+ ```
  
+ * add tolerations to pod definition
+ ```
+ apiVersion:
+ kind: Pod
+ metadata:
+   name: myapp-pod
+ spec:
+   containers:
+   - name: nginx-container
+     image: nginx
+   tolerations:
+   - key: "app"
+     operator: "Equal"
+     value: "blue"
+     effect: NoSchedule
+ ```
  
+ * NoExecute -> evict existing pod -> usually terminate the pod
+ * A pod with toleration can be scheduled on a node without any taint.
+ * A node with a taint can accept only pod with special toleration.
+ 
+ * The master node is a normal node with special taint which is set by kubernetes automatically.
+ * The taint prevents any application pod from being scheduled on this node.
  
  
  
