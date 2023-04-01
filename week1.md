@@ -392,7 +392,23 @@ schedule pod on a node: which pod goes which node
  
  * nodeName field cannot be changed with 'kubectl edit pod PODNAME' command.
  
+ ### Labels and Selectors
  
+ * group thing together
+ * filtering
+ * Labels are properties attached to each item.
+ * In cluster, there could be so many objects -> need to filter or view object by different categories: type, application or functionality, etc
+ * For pod, "metadata: labels:" defines labels
+ ```
+ kubectl get pods --selector app=App1
+ ```
+ 
+ * In replicaset definition file, there are two labels fields.
+ * "metadata: labels:" -> labels for replicaset itself
+ * "spec: template: metadata: labels:" -> labels for pod
+ * "sepc: selector: matcLabels: " matches the replicaset and pods
+ 
+ * Annotations: labels not selected by selectors, extra metadata, like comment?
  
  
  
