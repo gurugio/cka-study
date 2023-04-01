@@ -449,6 +449,64 @@ schedule pod on a node: which pod goes which node
  * The taint prevents any application pod from being scheduled on this node.
  
  
+ ### Node Selectors
+ 
+ * add Node Selector into pod definition file
+ ```
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: myapp-pod
+ spec:
+   containers:
+   - name: data-processor
+     image: data-processor
+   nodeSelector:
+     size: Large  ------------> label of target node
+ ```
+ 
+ * add label to target node
+ ```
+ kubectl label nodes node01 size=Large
+ ```
+ 
+ ### Node Affinity
+ 
+ * Node Selectors feature is limited: does not provide advanced selector "OR", "NOT".
+ * add Node Selector into pod definition file
+ ```
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: myapp-pod
+ spec:
+   containers:
+   - name: data-processor
+     image: data-processor
+ affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: size
+           operator: In
+           values:
+           - Large
+           - Medium ----> Large or Medium
+ ```
+ 
+ ```
+ - matchExpressions:
+   - key : size
+     operator: NotIn
+     values:
+     - Small    ----> except Small node?
+ ```
+ 
+ * Node Affinity Types
+   * requiredDuringSchedulingIgnoredDuringExecution: pod cannot start if affinity cannot meet
+   * preferredDuringSchedulingIgnoredDuringExecution: ignore affinity if there is no matching node
+ 
  
  
  
