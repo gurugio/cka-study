@@ -509,7 +509,7 @@ schedule pod on a node: which pod goes which node
  
  ### Resource Requirements and Limits
  
- * add "spec: resources:" field
+ * add "spec: resources:" field to set minimum, "spec: limits: " set limits.
  ```
  apiVersion: v1
  kind: Pod
@@ -527,6 +527,9 @@ schedule pod on a node: which pod goes which node
        requests:
          memory: "1Gi"
          cpu: 1
+       limits:
+         memory: "2Gi"
+         cpu: 2
  ```
  
  
