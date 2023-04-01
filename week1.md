@@ -372,10 +372,25 @@ schedule pod on a node: which pod goes which node
 ## DAY5 | 2023-03-31 | 49-61 |
  
  
+ ### manual scheduling
  
+ * The scheduler adds "spec: nodeName:" field when doing scheduling.
+ * A binding object: create a binding object and send a POST request to Pod's binding API (in the Json format).
+ ```
+ apiVersion: v1
+ kind: Binding
+ metadata:
+   name: nginx
+ target:
+   apiVersion: v1
+   kind: Node
+   name: node02 ------> Target node to run the Pod
+ ```
+ ```
+ curl --header "Content-Type:application/json" --request POST --data '{"apiVersion":"1", "kind":"Binding" ... }' http://$SERVER/api/v1/namespaces/default/node/$PODNAME/binding/
+ ```
  
- 
- 
+ * nodeName field cannot be changed with 'kubectl edit pod PODNAME' command.
  
  
  
