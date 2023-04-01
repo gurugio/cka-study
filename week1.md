@@ -507,7 +507,27 @@ schedule pod on a node: which pod goes which node
    * requiredDuringSchedulingIgnoredDuringExecution: pod cannot start if affinity cannot meet
    * preferredDuringSchedulingIgnoredDuringExecution: ignore affinity if there is no matching node
  
+ ### Resource Requirements and Limits
  
+ * add "spec: resources:" field
+ ```
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: simple-webapp-color
+   labels:
+     name: simple-webapp-color
+ spec:
+   containers:
+   - name: simple-webapp-color
+     image: simple-webapp-color
+     ports:
+     - containerPort: 8080
+     resources:
+       requests:
+         memory: "1Gi"
+         cpu: 1
+ ```
  
  
  
