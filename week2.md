@@ -2,7 +2,7 @@
 # DAY1 2023-04-03 62-75
 
  
- ### Node Affinity
+ ## Node Affinity
  
  * Node Selectors feature is limited: does not provide advanced selector "OR", "NOT".
  * add Node Selector into pod definition file
@@ -95,6 +95,18 @@ spec:
         image: monitoring-agent
 ```
 
+## Static Pods
+
+* kubelet can work without API server, scheduler and etc in master node.
+* kubelet read definition files from specific path -> kubelet check it regularly -> create pods
+* change the files -> kubelet changes pods
+* remove the files -> kubelet deletes pods
+* specify the path with --pod-manifest-path option for kubelet command
+* add --config=filename.yaml and staticPodPath value in filename.yaml
+
+* check pod with 'docket ps' on the node
+* You cannot modify the static pod with kube API and kubectl.
+* ignore by the kube-scheduler
 
 # DAY2 2023-04-04 76-93
 
