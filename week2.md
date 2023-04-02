@@ -108,6 +108,8 @@ spec:
 * You cannot modify the static pod with kube API and kubectl.
 * ignore by the kube-scheduler
 
+* find the static pod definition path with --config argument of kubelet -> staticPodPath: field in the config file
+
 # DAY2 2023-04-04 76-93
 
 
