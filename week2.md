@@ -131,6 +131,16 @@ kubectl top node
 kubectl top pod
 ```
 
+## Managing Application Logs
+
+* If there is one application in Pod
+```
+kubectl logs -f <POD name>
+```
+* If there are multiple app in Pod
+```
+kubectl logs -f <POD> <container name>
+```
 
 # DAY3 2023-04-05 94-104
 
