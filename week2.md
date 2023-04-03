@@ -112,6 +112,25 @@ spec:
 
 # DAY2 2023-04-04 76-93
 
+## Multiple Schedulers
+
+## Configuring Scheduler Profiles
+
+## Monitor Cluster Components
+
+* Node-level metrics: number of node, number of healthy node, performance metrics of CPU, memory, network and disk
+* Pod-level metrics: number of pod, cpu and memory consumption of pod
+* No full feature monitoring built-in k8s
+* kubelet has cAdvisor or Container Advisor in it: that retrieves performance metrics from pods and expose them through the kubelet API
+* after installing Metrics Server, you can see
+* cpu and memory consumption of each node
+```
+kubectl top node
+```
+```
+kubectl top pod
+```
+
 
 # DAY3 2023-04-05 94-104
 
