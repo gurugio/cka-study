@@ -142,6 +142,21 @@ kubectl logs -f <POD name>
 kubectl logs -f <POD> <container name>
 ```
 
+## Rolling Updates and Rollbacks
+
+* Rolling update is the default behavior.
+* Deployment creates a new replicaset when doing the rolling update: and replace a pod one by one, then destroy old replicaset.
+* do rollback
+```
+kubectl create -f definition.yml
+kubectl get deployments
+kubectl apply -f definition.yml
+kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1 ---> not recomment, not same to the definition file
+kubectl rollout status deployment/myapp-deloyment
+kubectl rollout history deployment/myapp-deployment
+kubectl rollout undo deployment/myapp-deployment
+```
+
 # DAY3 2023-04-05 94-104
 
 
