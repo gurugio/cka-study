@@ -159,8 +159,82 @@ kubectl rollout undo deployment/myapp-deployment
 
 # DAY3 2023-04-05 94-104
 
+## 96. Commands
+
+* The CMD of the ubuntu image is bash -> exit immediately
+```
+docker run ubuntu
+```
+
+* specify ENTRYPOINT
+```
+FROM Ubuntu
+ENTRYPOINT ["sleep"]
+...
+$ docker run ubuntu-sleeper 10 --> run "sleep 10"
+
+$ docker run ubuntu-sleeper ------> no operand -> error "missing operand"
+```
+
+* set default operand
+```
+FROM Ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+...
+$ docker run ubuntu-sleeper ------> do "sleep 5" if no operand
+$ docker run ubuntu-sleeper 10 ---> do "sleep 10"
+```
+
+* override entry-point
+```
+docker run --entrypoint msleep ubuntu-sleeper 20000
+```
+
+## 97. Commands and Arguments
+
+* operand to run the container
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleeper
+    args: ["10"]
+```
+
+* over-ride ENTRYPOINT with "spec.comtainers.command"
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleeper
+    command: ["msleep"]
+    args: ["10"]
+```
 
 # DAY4 2023-04-06 105-115
 
 
 # DAY5 2023-04-07 116-128
+
+
+
+
+
+
+
+
+
+
+
+
+
+
