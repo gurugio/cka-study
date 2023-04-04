@@ -145,7 +145,7 @@ kubectl logs -f <POD> <container name>
 ## Rolling Updates and Rollbacks
 
 * Rolling update is the default behavior.
-* Deployment creates a new replicaset when doing the rolling update: and replace a pod one by one, then destroy old replicaset.
+* Deployment creates a new replicaset when doing the rolling update: and replace a few pod at once, then destroy old replicaset.
 * do rollback
 ```
 kubectl create -f definition.yml
