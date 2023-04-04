@@ -220,6 +220,107 @@ spec:
     args: ["10"]
 ```
 
+## 100. Configure Environment Variables in Applications
+
+* plain key value pairs
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleeper
+    ports:
+    - containerPort: 8080
+    env:
+    - name: APP_COLOR
+      value: pink
+```
+
+* ConfigMap
+```
+env:
+- name: APP_COLOR
+  valueFrom:
+    configMapKeyRef:
+```
+
+* Secrets
+```
+env:
+- name: APP_COLOR
+  valueFrom:
+    secretKeyRef:
+```
+
+## 101. Configuring ConfigMaps in Applications
+
+* ConfigMaps: pass key-value configuration data into pod
+
+* Create ConfigMap imperative
+```
+kubectl create configmap <config-name> --from-literal=<key>=<value> --from-literal=<key>=<value>
+```
+
+```
+cat > file.config
+APP_COLOR: blue
+APP_MODE: prod
+...
+kubectl create configmap <config-name> --from-file=<path-to-file>
+```
+
+* definition file
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+```
+```
+kubectl create -f <file.yml>
+```
+
+* check configmap
+```
+kubectl get configmaps
+kubectl describe configmaps
+```
+
+* Inject into pod
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleeper
+    ports:
+    - containerPort: 8080
+    envFrom:
+    - configMapRef:
+      name: app-config ------> configmap name defined by definition file above
+
+```
+* inject single key-value
+```
+env:
+- name: APP_COLOR
+  valueFrom:
+    configMapKeyRef:
+      name: app-config
+      key: APP_COLOR
+```
+
+
 # DAY4 2023-04-06 105-115
 
 
