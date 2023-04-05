@@ -320,6 +320,59 @@ env:
       key: APP_COLOR
 ```
 
+## 104. Configure Secrets in Applications
+
+* store sensitive data in encoded format
+
+* imperative
+```
+kubectl create secret generic <secret-name> --from-literal=<key>=<value> 
+kubectl create secret generic <secret-name> --from-file=<path-to-file>
+```
+
+* definition file
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+data:
+  DB_Host: <encoded string by base64 tool>
+  DB_User: <encoded string by base64 tool>
+  DB_Password: <encoded string by base64 tool>
+...
+kubectl create -f FILE.yml
+```
+
+* kubectl describe command does not show the values
+* Use `kubectl get secret <secret-name> -o yaml` to get the values 
+
+* Inject all values
+```
+envFrom:
+- secretRef:
+  name: app-config
+```
+
+* Inject a single value
+```
+env:
+- name: DB_Password
+  valueFrom:
+    secretKeyRef:
+      name: app-secret
+      key: DB_Password
+```
+
+* From a file in a volume: one file has one value
+```
+volumes:
+- name: app-secret-volume
+  secret:
+    secretName: app-secret
+```
+
+* Secret values are not encrypted, but encoded with base64
 
 # DAY4 2023-04-06 105-115
 
