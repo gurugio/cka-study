@@ -376,6 +376,40 @@ volumes:
 
 # DAY4 2023-04-06 105-115
 
+## 105. A note about Secrets!
+
+## 109. Scale Applications
+
+* rolling update and rollback
+
+## 110 Multi Container Pods
+
+* "spec.containers" is an array!
+
+## 114. InitContainers
+
+* You can specify multiple containers under spec.initContainers field.
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+```
+
 
 # DAY5 2023-04-07 116-128
 
