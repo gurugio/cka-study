@@ -413,7 +413,16 @@ spec:
 
 # DAY5 2023-04-07 116-128
 
+## 121. OS upgrades
 
+* Node eviction timeout: node is expelled from cluster by master node
+
+* how to upgrade a node
+* 1. drain a node: pods are gracefully terminated and recreated on another node `kubectl drain <node-name>`
+* 2. node is marked as unschedulerble `kubectl cordon <node-name>`
+* 3. reboot the node
+* 4. make the node schedulable: `kubectl uncordon <node-name>`
+* 
 
 
 
