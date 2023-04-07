@@ -425,9 +425,43 @@ spec:
 * 
 
 
+## Kubernetes Software Versions
 
+* `kubectl get nodes` -> see version field
 
+## 126. Cluster Upgrade Process
 
+* no need to use the same version of all components
+* but kube-apiserver always should be high than others
+
+* Dependency
+* kube-apiserver version X,  
+* controller-manager, kube-scheduler => X or X-1
+* kubelet, kube-proxy => X or X-1 or X-2
+* kubectl => X+1 or X or X-1
+
+* So this allows us to do live upgrade
+* It's recommended to upgrade version one minor version at a time
+
+* Upgrade flow
+* 1. upgrade master node
+* - master node is down for a while but worker nodes are not affected
+* - But no management => cannot use kubectl and kube-api, no automatic Pod recreation
+* 2. upgrade worker node one by one
+* - If it upgrade all worker nodes at once, user services are also down.
+* - Upgrade one by one node
+* - move Pods to other nodes and upgrade one node
+* 2-1. create a new node with new version and upgrade other nodes
+* - more convenient
+* - move Pods to new version node and upgrade the node
+
+* kubeadm shows a plan: current version, latest version
+* - kubeadm does not upgrade kubelet -> upgrade manually
+* - show which command to do upgrade
+```
+kubeadm upgrade plan
+...
+```
 
 
 
