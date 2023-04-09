@@ -7,6 +7,7 @@
 * Or backup ETCD cluster -> backup ETCD and make a snashot with etcdctl
 
 ```
+export ETCDCTL_API=3 -----> v2 does not have snapshot command
 etcdctl snapshot save -h
 --cacert
 --cert
