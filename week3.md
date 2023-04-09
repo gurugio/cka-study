@@ -1,7 +1,21 @@
 # DAY1 2023-04-10 129-143
 
+## 130. Backups and restore methods
 
+* backing up resource configuration
+* query kube API server -> save all resource configuration
+* Or backup ETCD cluster -> backup ETCD and make a snashot with etcdctl
 
+```
+etcdctl snapshot save -h
+--cacert
+--cert
+--endpoints=[127.0.0.1:2345]
+--key
+```
+```
+etcdctl snapshot restore -h
+```
 
 # DAY2 2023-04-11 144-152
 
