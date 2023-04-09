@@ -13,11 +13,13 @@ etcdctl snapshot save -h
 --cert
 --endpoints=[127.0.0.1:2345]
 --key
-# etcdctl snapshot save /opt/snapshot-pre-boot.db --cacert="/etc/kubernetes/pki/etcd/ca.crt" --cert="/etc/kubernetes/pki/etcd/server.crt" --key="/etc/kubernetes/pki/etcd/server.key"
+# etcdctl snapshot save /opt/snapshot-pre-boot.db --cacert="/etc/kubernetes/pki/etcd/ca.crt" --cert="/etc/kubernetes/pki/etcd/server.crt" --key="/etc/kubernetes/pki/etcd/server.key" --endpoints=127.0.0.1:2379
 Snapshot saved at /opt/snapshot-pre-boot.db
 ```
 ```
-etcdctl snapshot restore -h
+etcdctl snapshot restore --data-dir /var/lib/etcd-from-backup /opt/snapshot-pre-boot.db
+
+volumes: -hostPath: path: -> change /var/lib/etcd-from-backup -> etcd will be restarted
 ```
 
 # DAY2 2023-04-11 144-152
