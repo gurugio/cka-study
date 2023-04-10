@@ -34,7 +34,24 @@ volumes: -hostPath: path: -> change /var/lib/etcd-from-backup -> etcd will be re
 
 ## Authentication
 
+* Kube supports serviceaccount - what is it?
+* User = Admin + Developer
+* Admin: mainly use kubectl
+* Developer: mainly use Kube APIs 
+* Both goes to Kube-apiserver -> kube-apiserver does authentication
+* Authentication with statis password file, statkc token file, Cerificates, 3rd parth protocol
 
+* Static password file
+* make scv file with passord,usename,permission
+* run kube-apiserver --basic-auth-file=user-details.csv
+* add -u "user:password" to curl
+* We can add group field to password file
+
+* token file user-token-detail.csv
+* run kube-apiserver --token-auth-file=user-detail.csv
+* add --header "Authorization: Bearer <token>" to curl
+  
+* NOT RECOMENDED
 
 # DAY2 2023-04-11 144-152
 
