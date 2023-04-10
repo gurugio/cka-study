@@ -60,7 +60,7 @@ volumes: -hostPath: path: -> change /var/lib/etcd-from-backup -> etcd will be re
 * guarantee trust between two during a transaction
 * eg)encrypt communication between user and server
 
-## TLS in Kubernetes
+## 145. TLS in Kubernetes
 
 * All communications need to be secure.
 
@@ -69,7 +69,7 @@ volumes: -hostPath: path: -> change /var/lib/etcd-from-backup -> etcd will be re
 * Between kube-apiserver and etcd, kube-apiserver is a client and etcd server is a server.
 
 
-## Certificate Creation
+## 146. Certificate Creation
 
 * Use openssl tool among various tools
 
@@ -108,6 +108,23 @@ users:
 * kube-apiserver is called : kubernetes, kubernetes.default, kubernetes.default.svc, kubernetes.default.svc.cluster.local or IP address
 * kube-apiserver needs client and server certificates.
 * 
+
+## 147. View Certificate Details
+
+* kubeadm: see /etc/kubernetes/manifests/kube-apiserver.yaml: spec.containers.command
+* command parameters: client-ca-file, etcd-cafile, etcd-certfile, etcd-keyfile => access etcd
+* tls parameters: tls-cert-file, tls-private-key
+
+* see API server certificate file /etc/kubernetes/pki/apiserver.crt
+```
+openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
+...
+Subject: CN=kube-apiserver
+...
+Alternative Name:
+...
+```
+
 
 # DAY3 2023-04-12 153-162
 
