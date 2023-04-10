@@ -22,6 +22,20 @@ etcdctl snapshot restore --data-dir /var/lib/etcd-from-backup /opt/snapshot-pre-
 volumes: -hostPath: path: -> change /var/lib/etcd-from-backup -> etcd will be restarted
 ```
 
+## Kubernetes Security Primitives
+
+* Kube API server is the first line for security
+* Who can access / What can they do
+
+* who can access -> authentication
+* what can they do - RBAC authorization, ABAC, node, webhook...
+* All communications between various modules in master/workder nodes are encrypted with TLS.
+* network policy - controll access between Pods
+
+## Authentication
+
+
+
 # DAY2 2023-04-11 144-152
 
 
