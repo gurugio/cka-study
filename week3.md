@@ -129,8 +129,44 @@ Alternative Name:
 # DAY3 2023-04-12 153-162
 
 
+## KubeConfig
+
+* $HOME/.kube/config: define certificates options for kubectl by default, no need to specify the path when using kubectl
+* three sections: Clusters, Contexts, Users
+* Contexts: which user uses which cluster
+```
+apiVersion: v1
+kind: Config
+current-context: my-kube-admin@my-kube-play
+clusters:
+- name: my-kube-play
+  cluster:
+    certificate-authority: ca.crt
+    server: https://my-kube-play:6443
+contexts:
+- name: my-kube-admin@my-kube-play
+  context:
+    cluster: my-kube-play
+    user: my-kube-admin
+    namespace: finance ======> optional, set default namespace
+users:
+- name: my-kube-admin
+  user:
+    client-certificate: admin.crt
+    client-key: admin.key
+```
+
+`kubectl config view`
+
+`kubectl config use-context another-user@another-cluster` => change current-context in config file
+
+
 # DAY4 2023-04-12 163-173
 
 
 
 # DAY5 2023-04-13 174-185
+
+
+
+
