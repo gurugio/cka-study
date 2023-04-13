@@ -164,8 +164,46 @@ users:
 # DAY4 2023-04-12 163-173
 
 
-
 # DAY5 2023-04-13 174-185
+
+## Network Policy
+
+* Allow ingress traffic from API Pod on Port 3306
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db =======> apply this rule to this Pod
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+      matchLabels:
+        name: api-pod =====> allow traffic from this pod
+    ports:
+    - protocol: TCP
+      port: 3306
+```
+```
+kubectl create -f policy-definition.yml
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
