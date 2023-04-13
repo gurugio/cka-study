@@ -255,10 +255,33 @@ Below is TWO rules: match-labels OR match-namespace
 ```
 
 
-
-
-
-
+Egress example
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: internal-policy
+  namespace: default
+spec:
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          name: mysql
+    - podSelector:
+        matchLabels:
+          name: payroll
+    ports:
+    - port: 3306
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      name: internal
+  policyTypes:
+  - Egress
+```
 
 
 
