@@ -195,6 +195,64 @@ kubectl create -f policy-definition.yml
 ```
 
 
+## 176. Develoing network policies
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from
+    - podSelector: ========> specify pod. If no podSelector, all pod in the specified namespace are allowed.
+        matchLabels:
+          name: api-pod
+      namespaceSelector: ====> specify namespace of pod-selector. Otherwise all namespaces are allowed. 
+        matchLabels:
+          name: prod
+    - ipBlock:
+      cidr: 192.168.5.10/32 ===> allowed IP range
+      except:
+      - 17.117.1.0/24 ==========> blocked IP range
+    ports:
+    - protocol: TCP
+      port: 3306
+  egress:
+  - to:
+    - ipBlock:
+      cidr: 192.168.5.10/32
+    ports:
+    - protocol: TCP
+      port: 80
+```
+
+
+Below is one rule: match-labels AND match-namespace
+```
+    - podSelector: ========> specify pod. If no podSelector, all pod in the specified namespace are allowed.
+        matchLabels:
+          name: api-pod
+      namespaceSelector: ====> specify namespace of pod-selector. Otherwise all namespaces are allowed. 
+        matchLabels:
+          name: prod
+```
+
+
+Below is TWO rules: match-labels OR match-namespace
+```
+    - podSelector: ========> specify pod. If no podSelector, all pod in the specified namespace are allowed.
+        matchLabels:
+          name: api-pod
+    - namespaceSelector: ====> specify namespace of pod-selector. Otherwise all namespaces are allowed. 
+        matchLabels:
+          name: prod
+```
 
 
 
