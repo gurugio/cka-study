@@ -314,7 +314,7 @@ docker run -it --name mysql --volume-driver <volume-driver-name> --mount src=ebs
 
 ## 184 Container Storage Interface (CSI)
 
+* CRI (Container Runtime Interface): defines how an orchestration solution would communicate run times (eg, Docker).
 
-
-
-
+* CSI (Container Storage Interface): support multiple storage solutions
+* set of RPC calls and define communication for storage management
