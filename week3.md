@@ -285,10 +285,31 @@ spec:
 
 ## 182 Storage in Docker
 
+* Volume mounting: mount dir in a default directory(/var/lib/docker/volumes)
+* eg) /var/lib/docket/volumes/data_volume directory of host to /var/lib/mysql of container
+```
+docker run -v data_volume:/var/lib/mysql <conatiner-name>
+```
+
+* Bind mounting: mount a dir from any location oh the host
+```
+docker run -v /data/mysql:/var/lib/mysql <container-name>
+```
+
+* More verbose way to mount
+```
+docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+```
 
 
 ## 183 Volume Driver Plugins in Docker
 
+* Volumes are not handled by Storage Driver, but Volume Driver Plugins (Openstack cinder)
+
+* Choose volume driver
+```
+docker run -it --name mysql --volume-driver <volume-driver-name> --mount src=ebs-vol,target=/var/lib/mysql mysql
+```
 
 
 ## 184 Container Storage Interface (CSI)
