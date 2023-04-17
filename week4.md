@@ -75,7 +75,40 @@ kubectl get persistentvolumeclaim ==> check status: Pending or Bound
 kubectl delete persistentvolumeclaim myclaim
 ```
 
-* K8s looks up the PVs and match PVC to one PV 
+* K8s looks up the PVs and match PVC to one PV
+
+## 194. Storage Class
+
+* Dynamic provisioning of volumes
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: google-storage
+provisioner: kubernetes.io/gce-pd
+```
+
+* We don't need PV definition anymore because PV is created automatically when the SC is created.
+
+* change PVC to use SC
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+  - ReadWriteOnde
+  storageClassName: google-storage =====> use SC
+  resources:
+    requests:
+      storage: 500Mi 
+```
+
+* When pvc is created, SC will create a PV automatically and bind it.
+* There are many provisioner.
+* Each provisioner has its own parameters.
+
 
 # DAY2 2023-04-18 199-209
 
