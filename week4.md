@@ -112,6 +112,42 @@ spec:
 
 # DAY2 2023-04-18 199-209
 
+## Network Namespaces
+
+* create a network namespaces
+
+```
+ip netns add red
+ip netns add blue
+ip netns => list network namespaces
+```
+
+* list interface in the red ns
+```
+ip netns exec red ip link
+ip -n red link
+ip -n red arp
+ip -n red route
+```
+
+* setup network
+```
+ip link add veth-red type veth peer name veth-blue => link between veth
+ip link set veth-red netns red => veth <-> network namespace
+ip link add veh-blud netns blue
+
+ip -n red addr add 192.168.15.1 dev veth-red ==> set ip
+ip -n blue addr add 19.168.15.2 dev veth-blue
+
+ip -n red link set veth-red up
+ip -n blue link set veth-red up
+
+ip -n red ping 192.168.15.2
+
+
+ip -n red arp
+ip -n blue arp
+```
 
 
 # DAY3 2023-04-19 210-223
