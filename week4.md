@@ -179,6 +179,32 @@ ip -n blue ip route add 192.168.1.0/24 via 192.168.15.5 ; add gateway, gateway i
 iptables -t nat -A POSTROUTING -s 192.168.15.0/24 -j MASQUERADE ; use NAT
 ```
 
+
+## Docker Networking
+
+* host network: `docker run --network host nginx` same network with host
+* Two container cannot listen to the same port
+
+* bridge network: internal private network which Docker host and containers attach to `docker run nginx`
+* default address is 172.17.0.0
+* Each container has its own internal private network address 
+
+```
+docker network ls
+...
+..bridge...
+```
+
+* Whenever docker create new container, it creates a network namespace, creates a pair of interfaces (one end to container, another end to bridge)
+* Then the all containers can communicate each other.
+* Still it needs to map port of container to external port with NAT: HOST's ip:port -> container's IP:port
+* Now external use can access the container with host's IP and external port.
+
+## Container networking interface CNI
+
+* common interface to create network
+
+
 # DAY3 2023-04-19 210-223
 
 
