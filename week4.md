@@ -259,6 +259,12 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 * `kubectl get pods -n kube-system` -> see weave-net-XXXX on each nodes
 * `kubectl logs weave-net-XXXX weave -n kube-system` -> see log
 
+## IP address Management - Weave
+
+* IPAM in the CNI plugin manages IP addresses
+* /etc/cni/net.d/net-script.conf defines type of plugin, subnet, route
+
+
 # DAY4 2023-04-20 224-231
 
 
