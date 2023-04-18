@@ -239,6 +239,25 @@ node3: ip addr add 10.244.3.1/24 dev v-net-0
 * kubelet runs a script passed as parameter whenever it creates a container.
 * The script implements CNI interfaces.
 
+## CNI in kubernetes
+
+* view kubelet options `ps aux | grep kubelet` -> --cni-bin-dir, --cni-conf-dir, --network-plugin
+* /opt/cni/bin: executables of plugins
+* /etc/cni/net.d: configuration, kube checks which plugin is used
+
+## CNI weave
+
+* deploy an agent or service on each node
+* They comminucate and exchange information regarding the nodes, pod and interfaces
+* Weave creates its own bridge on the nodes and namespaces, and allocate IPs to each network.
+* Weave intercepts packet to another nodes and handle send/receive for itself.
+* install weave
+```
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base 64 | tr -d '\n')" 
+```
+* create a daemonset to deploy it on all nodes
+* `kubectl get pods -n kube-system` -> see weave-net-XXXX on each nodes
+* `kubectl logs weave-net-XXXX weave -n kube-system` -> see log
 
 # DAY4 2023-04-20 224-231
 
