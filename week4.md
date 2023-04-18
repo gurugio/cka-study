@@ -207,6 +207,38 @@ docker network ls
 
 # DAY3 2023-04-19 210-223
 
+## Pod Networking
+
+* k8s networking model
+* Every POD should have an IP address
+* Every POD should be able to communicate with every other POD in the same node
+* Every POD should be able to communicate with every other POD on other nodes without NAT.
+
+
+* Each node has its own IP
+* NODE1: 192.168.1.11
+* NODE2: 192.168.1.12
+* NODE3: 192.168.1.13
+
+* Create a bridge network on each node
+```
+node1: ip link add v-net-0 type bridge; ip link set dev v-net-0 up
+node2: ip link add v-net-0 type bridge; ip link set dev v-net-0 up
+node3: ip link add v-net-0 type bridge; ip link set dev v-net-0 up
+```
+
+* assing IP to bridge: each brige network has its own subnet
+```
+node1: ip addr add 10.244.1.1/24 dev v-net-0
+node2: ip addr add 10.244.2.1/24 dev v-net-0
+node3: ip addr add 10.244.3.1/24 dev v-net-0
+```
+
+* And do many steps: create virtual interfaces between nodeX and container, add route table and etc
+* CNI defines the steps to establish network
+* kubelet runs a script passed as parameter whenever it creates a container.
+* The script implements CNI interfaces.
+
 
 # DAY4 2023-04-20 224-231
 
