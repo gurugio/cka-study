@@ -149,6 +149,35 @@ ip -n red arp
 ip -n blue arp
 ```
 
+* Create a virtual switch with Linux Bridge, Open vSwitch 
+* How to create a virtual switch with Linux Bridge
+```
+ip link add v-net-0 type bridge ==> create another interface with bridge type
+ip link ===> list v-net-0 along with other interfaces
+ip link set dev v-net-0 up
+
+; connect all namespaces to the bridge network
+ip link add veth-red type veth peer name veth-red-br ; veth-red <-> veth-red-br
+ip link add veth-blue type veth per name veth-blue-br ; veth-blue <-> veth-blue-br
+ip link set veth-red netns red ; use veth-red for red namespace
+ip link set veth-red-br master v-net-0 ; veth-red-br <-> v-net-0 virtual switch
+ip -n red addr add 192.168.15.1 dev veth-red
+ip -n red link set veth-red up
+```
+
+* set an IP to the virtual switch
+```
+ip addr add 192.168.15.5/24 dev v-net-0
+ping 192.168.15.5 ; connect host to the virtual switch
+```
+
+* enable external network
+```
+ip netns exec blue ping 192.168.1.3 ; does not work
+ip netns exec blue route ; only 192.168.15.0
+ip -n blue ip route add 192.168.1.0/24 via 192.168.15.5 ; add gateway, gateway is v-net-0 of the host
+iptables -t nat -A POSTROUTING -s 192.168.15.0/24 -j MASQUERADE ; use NAT
+```
 
 # DAY3 2023-04-19 210-223
 
