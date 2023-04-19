@@ -311,6 +311,34 @@ DNAT tcp to <ip:port> <= target ip
 
 # DAY4 2023-04-20 224-231
 
+## CoreDNS in Kubernetes
+
+* /etc/resolve.conf : save dns server ipaddress
+* k8s deploys a DNS server in the cluster: Kube DNS (old) CoreDNS( since 1.2)
+* conf file location: /etc/coredns/Corefile
+* That conf file is managed by a configmap: coredns `kubectl get configmap -n kube-system`
+* When CoreNDS is deployed, k8s creates a servive "kube-dns"
+* When a pod is created, kubelet sets DNS to IP address of kube-dns in /etc/resolv.conf.
+```
+cat /var/lib/kubelet/config.yaml
+...
+clusterDNS:
+- A.B.C.D =======> IP of kube-dns service
+clusterDomain: cluster.local
+```
+* Then pod can access other pods with name: host command shows full domain name and IP address
+```
+# host web-service
+web-service.default.svc.cluster.local has address A.B.C.D
+```
+
+* host command with pod works with full name
+```
+# host 10-244-2-6
+not found
+# host 10-244-2-6.default.pod.cluster.local
+10-244-2-6.default.pod.cluster.local has address 10.244.2.6
+```
 
 
 # DAY5 2023-04-21 232-241
