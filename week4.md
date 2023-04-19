@@ -265,6 +265,32 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 * /etc/cni/net.d/net-script.conf defines type of plugin, subnet, route
 
 
+## Service Networking
+
+* A service is accessible from all pods of any node
+* Service is not bound to a specific node but hosted across a cluster.
+* ClusterIP: provide an IP for service accessible across a cluster => internal access
+* NodePort: provide an IP and port for external access
+
+* kubelet create a pod and invokes the CNI plugin to configure networking
+* When a new service is created, it is assigned an IP address. kube-proxy gets that IP address and creates forwading rules on each node.
+* Service does not exist actually. There is nothing listening no the IP of the service. There is no process.
+* A traffic to the service IP:port will be forwared to the IP:port of pod by kube-proxy.
+* kube-proxy manages a rule for ip:port forwarding.
+
+`kubectl get service` -> shows IP and port of ClusterIP or NodePort
+`kube-api-server --service-cluster-ip-range ipNet` -> set a IP range for service 
+`ps aux | grep kube-api-server` -> see service-cluster-ip-range
+
+
+```
+iptables -L -t nat | grep db-service
+KUBE-SVC-XXXX <ip> <port> <= source ip
+DNAT tcp to <ip:port> <= target ip 
+```
+
+`cat /var/log/kube-proxy.log` see what proxy it uses: add new service <service-name:port> to <IP:port>
+
 # DAY4 2023-04-20 224-231
 
 
