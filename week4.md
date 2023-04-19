@@ -293,6 +293,22 @@ DNAT tcp to <ip:port> <= target ip
 
 `cat /var/log/kube-proxy.log` see what proxy it uses: add new service <service-name:port> to <IP:port>
 
+
+## DNS in kubernetes
+
+* Each node has its own node name and IP
+* External DNS server has the node names and IPs
+
+* DNS resolution within the cluster: pod, services and etc
+* k8s has default DNS server
+* Whenever a service is created, DNS service of k8s creates a record for the service.
+* In the same namespace, it needs only service name `http://web-service`
+* From another namespace, it appends namespace after the service name `http://web-service.apps`
+* sub-domain of service is svc => `http://web-service.apps.svc`
+* root domain cluster.local => `http://web-service.apps.svc`
+* `http://<IP-of-server>.apps.svc.cluster.local` is same
+
+
 # DAY4 2023-04-20 224-231
 
 
