@@ -279,8 +279,10 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 * kube-proxy manages a rule for ip:port forwarding.
 
 `kubectl get service` -> shows IP and port of ClusterIP or NodePort
-`kube-api-server --service-cluster-ip-range ipNet` -> set a IP range for service 
-`ps aux | grep kube-api-server` -> see service-cluster-ip-range
+
+`kube-apiserver --service-cluster-ip-range ipNet` -> set a IP range for service 
+
+`ps aux | grep kube-apiserver` -> see service-cluster-ip-range
 
 
 ```
