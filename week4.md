@@ -340,8 +340,134 @@ not found
 10-244-2-6.default.pod.cluster.local has address 10.244.2.6
 ```
 
+## Ingress
+
+* k8s service of deployment, wear-service, exports a high number of port, 30080, for the external user.
+* A proxy server or load balancer forwards 30080 port to 80 port and then the external user can access the service via 80 port.
+* Create new service (or LoadBalancer), video-service, exports 38202 port.
+* Then a new proxy or load-balancer to access two services.
+* Total there needs three proxy/load-balancer.
+
+* All of the proxy and load-balander could be replaced with k8s Ingress.
+* Ingress makes user access applications with single externally accessible url.
+* Ingress also route traffic to different services based on the URL path.
+* Ingress supports SSL as well.
+* Ingress is a virual layer-7 load balancer builtin.
+
+
+* Ingress controller: deploying nginx eg. not deployed by default. any layer-7 load balancer.
+* Ingress resources: definition files
+
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-ingress-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nginx-ingress
+  template:
+    metadata:
+      labels:
+        name: nginx-ingress
+    spec:
+      containers:
+        - name: nginx-ingress-controller
+          image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.21.0
+      args:
+        - /nginx-ingress-controller
+        - --configmap=$(POD_NAMESPACE)/nginx-configuration
+      env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+```
+
+* service to be accessed from external user
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    name: nginx-ingress
+```
+
+* `kubectl create -f ingress-wear.yaml`
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-wear
+spec:
+  backend:
+    serviceName: wear-service
+    servicePort: 80
+```
+
+`kubectl get ingress` shows ingress objects.
+
+* Ingress routes traffic based on url
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-wear-watch
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /wear
+        backend:
+          serviceName: wear-service ---> wear-service ingress is created above
+          servicePort: 80
+      - path: /watch
+        backend:
+          serviceName: watch-service
+          servicePort: 80
+```
+
+`kubectl describe ingress ingress-wear-watch`: shows which path is mapped to which backend
+
 
 # DAY5 2023-04-21 232-241
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
