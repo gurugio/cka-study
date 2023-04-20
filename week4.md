@@ -482,6 +482,13 @@ spec:
           servicePort: 80
 ```
 
+* create ingress with kubectl command
+```
+Format - kubectl create ingress <ingress-name> --rule="host/path=service:port"
+
+Example - kubectl create ingress ingress-test --rule="wear.my-online-store.com/wear*=wear-service:80"
+```
+
 # DAY5 2023-04-21 232-241
 
 
