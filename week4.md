@@ -451,7 +451,36 @@ spec:
 ```
 
 `kubectl describe ingress ingress-wear-watch`: shows which path is mapped to which backend
+```
+Default backend: default-http-backend:80 ---> user access a patch not listed below
+...
+/wear wear-service:80
+/watch watch-service:80
+...
 
+```
+
+* set host name instead path
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-wear-watch
+spec:
+  rules:
+  - host: wear.my-online-store.com
+    http:
+      paths:
+      - backend:
+          serviceName: wear-service ---> wear-service ingress is created above
+          servicePort: 80
+  - host: watch.my-online-store.com
+    http:
+      paths:
+      - backend:
+          serviceName: watch-service
+          servicePort: 80
+```
 
 # DAY5 2023-04-21 232-241
 
